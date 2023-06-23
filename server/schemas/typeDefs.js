@@ -22,12 +22,12 @@ type Auth {
 }
 
 input BookContent {
-  bookId: Int
   authors: [String]
   description: String
-  title: String
+  bookId: Int
   image: String
   link: String
+  title: String
 }
 
 type Query {
