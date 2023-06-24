@@ -13,29 +13,12 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-  const [me, {error1}] = useQuery(GET_ME);
-const [removeBook, {error2}] = useMutation(REMOVE_BOOK)
+  const {loading, data} = useQuery(GET_ME)
+  //!PLEASE HELP ME
+  const userData = data?.me || []
+const [removeBook, {error}] = useMutation(REMOVE_BOOK)
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(me).length;
-
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-        if (!token) {
-          return false;
-        }
-
-        const {data} = await me();
-
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getUserData();
-  }, [userDataLength]);
+  const userDataLength = Object.keys(userData).length;
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -46,7 +29,7 @@ const [removeBook, {error2}] = useMutation(REMOVE_BOOK)
     }
 
     try {
-      const {data} = await removeBook({bookId});
+      const {data} = await removeBook({variables: {bookId: bookId}});
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
@@ -61,19 +44,19 @@ const [removeBook, {error2}] = useMutation(REMOVE_BOOK)
 
   return (
     <>
-      <div fluid className='text-light bg-dark p-5'>
+      <div className='text-light bg-dark p-5'>
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
       </div>
       <Container>
         <h2 className='pt-5'>
-          {me.savedBooks.length
-            ? `Viewing ${me.savedBooks.length} saved ${me.savedBooks.length === 1 ? 'book' : 'books'}:`
+          {userData.savedBooks.length
+            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <Row>
-          {me.savedBooks.map((book) => {
+          {userData.savedBooks.map((book) => {
             return (
               <Col md="4" key={book.bookId}>
                 <Card key={book.bookId} border='dark'>
