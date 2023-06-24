@@ -2,7 +2,6 @@
   "name": "googlebooks-app",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://barosa19.github.io/book-search-engine",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
