@@ -2,7 +2,7 @@
 
 ## Description
           
-This application 
+This application is book search engine that allows users to create an account, search for books they want, and save them to a personalized list.
 
 ## Table of Contents
 
@@ -17,6 +17,7 @@ No installation is required for this application. To visit the webpage open your
 
 ## Usage
 
+![screenshot](https://github.com/barosa19/book-search-engine/assets/122834927/fcb3a3e4-c508-4db1-a156-1ae5dff8e91f)
 
 
 ## License
